@@ -34,7 +34,6 @@ public class DemoApplication {
         }
 
         URI uri = new URI(someConfigurationValue + name);
-        HttpRequest r = HttpRequest.newBuilder().build();
 
         // Seems pretty... silly that we would validate the URL starting
         // with something when we can clearly see how it is set.
@@ -43,6 +42,8 @@ public class DemoApplication {
         if(!uri.getHost().startsWith("https://example.com")){
             return "Bad";
         }
+
+        HttpRequest r = HttpRequest.newBuilder(uri).build();
 
         try{
             client.send(r, null);
