@@ -23,6 +23,10 @@ public class DemoApplication {
 
         String someConfigurationValue = System.getenv("NA");
 
+        if(name.contains("/")) {
+            return "Bad";
+        }
+
         // Trying to force a specific CodeQL warning to demonstrate an issue
         URL what = new URL(someConfigurationValue + name);
 
