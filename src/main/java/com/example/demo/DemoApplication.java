@@ -24,24 +24,13 @@ public class DemoApplication {
     }
 
     @GetMapping("/hello")
-    public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) throws IOException, URISyntaxException, InterruptedException {
+    public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) throws Exception {
 
         String someConfigurationValue = System.getenv("NA");
 
-        // Doesn't fix the problem
-        if(name.contains("/")) {
-            return "Bad";
-        }
+        String validatedUri = ValidateUri(name, someConfigurationValue);
 
-        URI uri = new URI(someConfigurationValue + name);
-
-        // Seems pretty... silly that we would validate the URL starting
-        // with something when we can clearly see how it is set.
-        // Perhaps using the URL class is simply a bad choice (the constructor
-        // has been deprecated, after all.
-        if(!uri.getHost().startsWith("https://example.com")){
-            return "Bad";
-        }
+        URI uri = new URI(validatedUri);
 
         HttpRequest r = HttpRequest.newBuilder(uri).build();
 
@@ -53,5 +42,14 @@ public class DemoApplication {
         }
 
         return String.format("Hello %s!", name);
+    }
+
+    private String ValidateUri(String name, String someConfigurationValue) throws Exception {
+        // Doesn't fix the problem
+        if(name.contains("/")) {
+            throw new Exception("Bad");
+        }
+
+        return someConfigurationValue + name;
     }
 }
