@@ -19,7 +19,7 @@ public class DemoApplication {
 
     @GetMapping("/hello")
     public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) throws MalformedURLException {
-        URL what = new URL("https://www.example.com");
+        URL what = new URL(name);
         return String.format("Hello %s!", name);
     }
 }
