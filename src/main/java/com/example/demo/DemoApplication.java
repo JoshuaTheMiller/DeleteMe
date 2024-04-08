@@ -17,6 +17,7 @@ import java.net.http.HttpRequest;
 @SpringBootApplication
 @RestController
 public class DemoApplication {
+    private static final String VALID_URI = "http://lgtm.com";
     private final HttpClient client = HttpClient.newHttpClient();
 
     public static void main(String[] args) {
@@ -50,6 +51,12 @@ public class DemoApplication {
             throw new Exception("Bad");
         }
 
-        return someConfigurationValue + name;
+        String someUrl = someConfigurationValue + name;
+
+        if(!VALID_URI.equals(someUrl)) {
+            throw new Exception("Bad");
+        }
+
+        return someUrl;
     }
 }
