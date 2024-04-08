@@ -17,7 +17,6 @@ import java.net.http.HttpRequest;
 @SpringBootApplication
 @RestController
 public class DemoApplication {
-    private static final String VALID_URI = "http://lgtm.com";
     private final HttpClient client = HttpClient.newHttpClient();
 
     public static void main(String[] args) {
@@ -29,7 +28,7 @@ public class DemoApplication {
 
         String someConfigurationValue = System.getenv("NA");
 
-        String validatedUri = ValidateUri(name, someConfigurationValue);
+        String validatedUri = ValidateUri(name);
 
         URI uri = new URI(validatedUri);
 
@@ -45,18 +44,12 @@ public class DemoApplication {
         return String.format("Hello %s!", name);
     }
 
-    private String ValidateUri(String name, String someConfigurationValue) throws Exception {
+    private String ValidateUri(String name) throws Exception {
         // Doesn't fix the problem
         if(name.contains("/")) {
             throw new Exception("Bad");
         }
 
-        String someUrl = someConfigurationValue + name;
-
-        if(!VALID_URI.equals(someUrl)) {
-            throw new Exception("Bad");
-        }
-
-        return someUrl;
+        return "https://example.com/" + name;
     }
 }
