@@ -13,7 +13,9 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+    - "main"
+    - "vuln"
   pull_request:
     branches: [ "main" ]
   schedule:

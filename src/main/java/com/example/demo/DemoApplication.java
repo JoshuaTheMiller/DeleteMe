@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 @SpringBootApplication
 @RestController
 public class DemoApplication {
@@ -15,7 +18,8 @@ public class DemoApplication {
     }
 
     @GetMapping("/hello")
-    public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) {
+    public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) throws MalformedURLException {
+        URL what = new URL("https://www.example.com");
         return String.format("Hello %s!", name);
     }
 }
