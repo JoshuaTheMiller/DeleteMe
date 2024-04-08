@@ -23,12 +23,22 @@ public class DemoApplication {
 
         String someConfigurationValue = System.getenv("NA");
 
+        // Doesn't fix the problem
         if(name.contains("/")) {
             return "Bad";
         }
 
+
         // Trying to force a specific CodeQL warning to demonstrate an issue
         URL what = new URL(someConfigurationValue + name);
+
+        // Seems pretty... silly that we would validate the URL starting
+        // with something when we can clearly see how it is set.
+        // Perhaps using the URL class is simply a bad choice (the constructor
+        // has been deprecated, after all.
+        if(!what.getHost().startsWith("https://example.com")){
+            return "Bad";
+        }
 
         try{
             what.openConnection();
