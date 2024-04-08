@@ -21,10 +21,10 @@ public class DemoApplication {
     @GetMapping("/hello")
     public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) throws MalformedURLException {
 
-        String someConfigurationValue = System.getenv("NA").isEmpty() ? "https://example.com" : System.getenv("NA");
+        String someConfigurationValue = System.getenv("NA").isEmpty() ? "example.com" : System.getenv("NA");
 
         // Trying to force a specific CodeQL warning to demonstrate an issue
-        URL what = new URL(someConfigurationValue + name);
+        URL what = new URL("https://", someConfigurationValue, 443, name);
 
         try{
             what.openConnection();
