@@ -24,7 +24,7 @@ public class DemoApplication {
         String someConfigurationValue = System.getenv("NA").isEmpty() ? "https://example.com" : System.getenv("NA");
 
         // Trying to force a specific CodeQL warning to demonstrate an issue
-        URL what = new URL(someConfigurationValue + name);
+        URL what = new URL(someConfigurationValue);
 
         try{
             what.openConnection();
